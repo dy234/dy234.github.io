@@ -36,6 +36,7 @@ function ShowSearchView(){
     document.getElementById("search_results_ul").innerHTML = "";
     document.getElementById('play_page_bg').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
+    document.getElementById('content_tip').style.display = 'none';
     
     if (document.getElementById('player') != null){
         var player = videojs('player');

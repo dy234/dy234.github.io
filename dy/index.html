@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>VideoX</title>
     <link href="thirdParty/video-js.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <script src="thirdParty/video.min.js"></script>
@@ -12,91 +12,101 @@
     <script type="text/javascript" src="main.js"></script>
   </head>
 <body>
-  <div class="header">
-    <div class="wrap">
-        <div class="logo">
-            <img id="logo" src="https://www.okzy.co/template/okokzy/images/logo.png" alt="">
-        </div>
-        <div class="search">
-          <div class="span_text">
-              <input  id="search_text" placeholder="百万视频任你搜！" type="text" name="search">
+  <div id='viewport'>
+    <div class="header">
+      <div class="wrap">
+          <div class="logo">
+              <p>VideoX</p>
           </div>
-          <span class="span_btn">
-              <input id="search_btn" type="button" value="搜索" onclick="searchVideo()">
-          </span>
-        </div>
+          <div class="search">
+            <div class="span_text">
+                <input  id="search_text" placeholder="百万视频任你搜！" type="text" name="search">
+            </div>
+            <span class="span_btn">
+                <input id="search_btn" type="button" value="搜索" onclick="searchVideo()">
+            </span>
+          </div>
+      </div>
     </div>
-  </div>
 
-  <div class="content" id='content'>
-    <div class="search_results">
-      <ul id="search_results_ul">
-        <!-- <li class="item_li">
-            <div class="vertical">
-                <div class="link_wrap">
-                  <div class ="link">
-                      <div class ="div_img" style="height: inherit; background-size: 100%; background-image: url('img/thumbnail.png');"></div>
-                      <div class ="div_img_bg" style="height: inherit; background-size: 100%; background-image: url('https://1img.hanjutv.com/201806/9bf0f99e18.jpg');"></div>
+    <div class="content_tip" id='content_tip'>
+        <p class="tip1">随心所欲</br>想看就看</p>
+        <p class="tip2">VideoX帮助你快速寻找目标视频！</p>
+      </div>
+
+    <div class="content" id='content'>
+      <div class="search_results">
+        <ul id="search_results_ul">
+          <!-- <li class="item_li">
+              <div class="vertical">
+                  <div class="link_wrap">
+                    <div class ="link">
+                        <div class ="div_img" style="height: inherit; background-size: 100%; background-image: url('img/thumbnail.png');"></div>
+                        <div class ="div_img_bg" style="height: inherit; background-size: 100%; background-image: url('https://1img.hanjutv.com/201806/9bf0f99e18.jpg');"></div>
+                    </div>
+                  </div>
+                  <div class="title">
+                    <a class ="title_link" href="" target="_blank">阿丽塔战斗天使</a>
                   </div>
                 </div>
-                <div class="title">
-                  <a class ="title_link" href="" target="_blank">阿丽塔战斗天使</a>
-                </div>
-              </div>
-        </li> -->
-      </ul>
-    </div>
-  </div>
-
-  <div class="play_page_bg" id='play_page_bg'>
-    <div class="play_page">
-      <div id="video_wrap">
-        <!-- <video
-          id="my-player"
-          class="video-js"
-          controls
-          autoplay>
-          <source src="https://tudou.com-l-tudou.com/20190713/20754_2d50f8bd/index.m3u8" type="application/x-mpegURL"></source>
-          <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a
-            web browser that
-            <a href="http://videojs.com/html5-video-support/" target="_blank">
-              supports HTML5 video
-            </a>
-          </p>
-        </video> -->
-      </div>
-      <div class='select_bg' >
-        <ul class='select_ul' id='select_ul'>
-          <!-- <li class="select_li">
-            <p class="select_btn">第01集</p>
           </li> -->
-          </ul>
+        </ul>
       </div>
     </div>
-  </div>
 
-  <div class="spinner" id='spinner'>
-    <div class="spinner-container container1">
-      <div class="circle1"></div>
-      <div class="circle2"></div>
-      <div class="circle3"></div>
-      <div class="circle4"></div>
+    <div class="play_page_bg" id='play_page_bg'>
+      <div class="play_page">
+        <div id="video_wrap">
+          <!-- <video
+            id="my-player"
+            class="video-js"
+            controls
+            autoplay>
+            <source src="https://tudou.com-l-tudou.com/20190713/20754_2d50f8bd/index.m3u8" type="application/x-mpegURL"></source>
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a
+              web browser that
+              <a href="http://videojs.com/html5-video-support/" target="_blank">
+                supports HTML5 video
+              </a>
+            </p>
+          </video> -->
+        </div>
+        <div class='select_bg' >
+          <ul class='select_ul' id='select_ul'>
+            <!-- <li class="select_li">
+              <p class="select_btn">第01集</p>
+            </li> -->
+            </ul>
+        </div>
+      </div>
     </div>
-    <div class="spinner-container container2">
-      <div class="circle1"></div>
-      <div class="circle2"></div>
-      <div class="circle3"></div>
-      <div class="circle4"></div>
+
+    <div class="spinner" id='spinner'>
+      <div class="spinner-container container1">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+      </div>
+      <div class="spinner-container container2">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+      </div>
+      <div class="spinner-container container3">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+      </div>
     </div>
-    <div class="spinner-container container3">
-      <div class="circle1"></div>
-      <div class="circle2"></div>
-      <div class="circle3"></div>
-      <div class="circle4"></div>
+
+    <div class="footer">
+      <p>Copyright © 2019 VideoX. All rights reserved.</p>
     </div>
   </div>
-
   <!-- <script>
 playVideo("https://tudou.com-l-tudou.com/20190713/20754_2d50f8bd/index.m3u8");
 
