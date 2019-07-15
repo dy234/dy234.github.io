@@ -5,11 +5,49 @@ body{
 }
 
 #viewport{
-  /* position: relative; */
-  min-height: 100%;
-  width: 100%;
   position: absolute;
   top: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+#menu_div{
+  position: fixed;
+  bottom: 0;
+  /* height: 50px;
+  width: 100%; */
+  background: #23b9ba;
+  z-index: 1;
+}
+
+.menu{
+  position: absolute;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #23b9ba;
+  background: #232325;
+  color: #ffffff;
+}
+
+#menu_btn{
+  left: 20px;
+  bottom: 20px;
+}
+
+#home_btn{
+  left: 20px;
+  bottom: 100px;
+}
+
+#back_btn{
+  left: 76px;
+  bottom: 76px;
+}
+
+#front_btn{
+  left: 100px;
+  bottom: 20px;
 }
 
 .footer{
