@@ -14,8 +14,6 @@ body{
 #menu_div{
   position: fixed;
   bottom: 0;
-  /* height: 50px;
-  width: 100%; */
   background: #23b9ba;
   z-index: 1;
 }
@@ -25,28 +23,62 @@ body{
   border-radius: 100px;
   width: 50px;
   height: 50px;
-  border: 2px solid #23b9ba;
+  border: 3px solid #23b9ba;
   background: #232325;
+  color: #ffffff;
+}
+
+.menu:hover{
+  background: #23b9ba;
+  cursor: pointer;
+}
+
+.menu-disabled{
+  position: absolute;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #23b9ba;
+  background: #ccc;
   color: #ffffff;
 }
 
 #menu_btn{
   left: 20px;
   bottom: 20px;
+  z-index: 1;
+}
+
+#home_btn, #back_btn, #front_btn{
+  transition-property:left bottom;
+	transition-duration:0.2s;
+	/* Safari */
+	-webkit-transition-property:left bottom;
+  -webkit-transition-duration:0.2s;
+  transition-timing-function: ease;
+  -moz-transition-timing-function: ease; /* Firefox 4 */
+  -webkit-transition-timing-function: ease; /* Safari 和 Chrome */
+  -o-transition-timing-function: ease; /* Opera */
 }
 
 #home_btn{
+  /* left: 20px;
+  bottom: 100px; */
   left: 20px;
-  bottom: 100px;
+  bottom: 20px;
 }
 
 #back_btn{
-  left: 76px;
-  bottom: 76px;
+  /* left: 76px;
+  bottom: 76px; */
+  left: 20px;
+  bottom: 20px;
 }
 
 #front_btn{
-  left: 100px;
+  /* left: 100px;
+  bottom: 20px; */
+  left: 20px;
   bottom: 20px;
 }
 
@@ -151,8 +183,11 @@ input,button,select,textarea{outline:none;}
 }
 
 .content{
-  position: relative;
+  position: relative; 
   padding-bottom: 50px;
+  margin: 50px auto 0;
+  padding: 0;
+  width: 1105px;
 }
 
 .content_tip{
@@ -175,12 +210,22 @@ input,button,select,textarea{outline:none;}
   color: #111;
 }
 
+.search_results{
+  display: inline-block;
+  width: 1000px;
+  margin-left: 200px;
+  margin-top: 0;
+  margin-left: 0;
+  margin-bottom: 100px;
+}
+
 .search_results ul{
-    position: relative;
+    /* position: relative;
     top: 30px;
     padding: 0;
-    margin: 0 auto;
+    margin: 0 auto; */
     width: 1000px;
+    padding: 0;
     list-style: none;
     font-size: 0;
 }
@@ -244,6 +289,43 @@ input,button,select,textarea{outline:none;}
 .title_link{
     font-size: 14px;
     color: #222;
+}
+
+.catalog{
+  width: 100px;
+  height: 500px;
+  display: inline-block;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
+  vertical-align: top;
+  border: 0;
+}
+
+.catalog_ul{
+  list-style: none; 
+  /* white-space: nowrap; */
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.catalog_ul li{
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.catalog_ul li input{
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #232325;
+  color: #ffffff;
+  border: 3px solid #23b9ba;
+}
+
+.catalog_ul li input:hover{
+  cursor: pointer;
+  background-color: #23b9ba;
 }
 
 /* common */
@@ -343,8 +425,16 @@ a, a:active, a:hover, a:link, a:visited {
     width: 50px;
     height: 50px;
     background-color: #3f3f3f;
-    /* border-radius: 10px; */
     margin: 8px;
+}
+
+.select_li_selected{ 
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  background-color: #3f3f3f;
+  margin: 8px;
+  border: 2px solid #23b9ba;
 }
 
 .select_btn{
@@ -354,12 +444,14 @@ a, a:active, a:hover, a:link, a:visited {
 }
 
 .spinner {
-    margin: 100px auto;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    display: none;
-  }
+  position: absolute;
+  display: none;
+  margin: 0 -20px;
+  width: 40px;
+  height: 40px;
+  top: 100px;
+  left: 50%;
+}
    
   .container1 > div, .container2 > div, .container3 > div {
     width: 10px;

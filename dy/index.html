@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>VideoX</title>
-    <link href="thirdParty/video-js.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/video.js/5.19.0/alt/video-js-cdn.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
-    <script src="thirdParty/video.min.js"></script>
-    <script src="thirdParty/videojs-contrib-hls.js"></script>
+    <script src="https://cdn.bootcss.com/video.js/5.19.0/video.min.js"></script>
+    <script src="https://cdn.bootcss.com/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script>
     <script type="text/javascript" src="main.js"></script>
   </head>
-<body>
+  <body>
   <div id='viewport'>
     <div class="header">
       <div class="wrap">
@@ -35,22 +35,65 @@
       </div>
 
     <div class="content" id='content'>
-      <div class="search_results">
-        <ul id="search_results_ul">
-          <!-- <li class="item_li">
-              <div class="vertical">
-                  <div class="link_wrap">
-                    <div class ="link">
-                        <div class ="div_img" style="height: inherit; background-size: 100%; background-image: url('img/thumbnail.png');"></div>
-                        <div class ="div_img_bg" style="height: inherit; background-size: 100%; background-image: url('https://1img.hanjutv.com/201806/9bf0f99e18.jpg');"></div>
-                    </div>
-                  </div>
-                  <div class="title">
-                    <a class ="title_link" href="" target="_blank">阿丽塔战斗天使</a>
-                  </div>
-                </div>
-          </li> -->
-        </ul>
+        <div class="catalog" id='catalog'>
+            <ul class='catalog_ul' id='catalog_ul'>
+              <!-- <li>
+                <input type="button" value="ok高速线路">
+              </li>
+              <li>
+                <input type="button" value="ok高速线路">
+              </li>
+              <li>
+                <input type="button" value="ok高速线路">
+                </li>  
+                <li>
+                  <input type="button" value="ok高速线路">
+                  </li>  
+                <li>
+                  <input type="button" value="ok高速线路">
+                </li>  
+                <li>
+                    <input type="button" value="ok高速线路">
+                  </li> -->
+              </ul>
+            </div>
+            <div class="search_results">
+                <ul id="search_results_ul">
+                  <!-- <li class="item_li">
+                      <div class="vertical">
+                          <div class="link_wrap">
+                            <div class ="link">
+                                <div class ="div_img" style="height: inherit; background-size: 100%; background-image: url('img/thumbnail.png');"></div>
+                                <div class ="div_img_bg" style="height: inherit; background-size: 100%; background-image: url('https://1img.hanjutv.com/201806/9bf0f99e18.jpg');"></div>
+                            </div>
+                          </div>
+                          <div class="title">
+                            <a class ="title_link" href="" target="_blank">阿丽塔战斗天使</a>
+                          </div>
+                        </div>
+                  </li> -->
+                </ul>
+              </div>
+
+      <div class="spinner" id='spinner'>
+        <div class="spinner-container container1">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+          <div class="circle3"></div>
+          <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+          <div class="circle3"></div>
+          <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+          <div class="circle3"></div>
+          <div class="circle4"></div>
+        </div>
       </div>
     </div>
 
@@ -82,41 +125,20 @@
       </div>
     </div>
 
-    <div class="spinner" id='spinner'>
-      <div class="spinner-container container1">
-        <div class="circle1"></div>
-        <div class="circle2"></div>
-        <div class="circle3"></div>
-        <div class="circle4"></div>
-      </div>
-      <div class="spinner-container container2">
-        <div class="circle1"></div>
-        <div class="circle2"></div>
-        <div class="circle3"></div>
-        <div class="circle4"></div>
-      </div>
-      <div class="spinner-container container3">
-        <div class="circle1"></div>
-        <div class="circle2"></div>
-        <div class="circle3"></div>
-        <div class="circle4"></div>
-      </div>
-    </div>
-
     <div class="footer">
       <p>Copyright © 2019 VideoX. All rights reserved.</p>
     </div>
   </div>
 
   <div id="menu_div">
-    <input class="menu" id='menu_btn' type="button" value="菜单">
+    <input class="menu" id='menu_btn' type="button" value="菜单" onclick="clickMenu()">
     <input class="menu" id='home_btn' type="button" value="首页">
-    <input class="menu" id='back_btn' type="button" value="返回">
+    <input class="menu" id='back_btn' type="button" value="后退">
     <input class="menu" id='front_btn' type="button" value="前进">
   </div>
-  <!-- <script>
-playVideo("https://tudou.com-l-tudou.com/20190713/20754_2d50f8bd/index.m3u8");
 
-  </script> -->
+  <script>
+      webAppInit();
+    </script>
 </body>
 </html>
