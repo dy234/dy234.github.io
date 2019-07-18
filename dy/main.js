@@ -19,7 +19,7 @@ function searchVideo(){
         uiMgr.showLoading();
         uiMgr.clearSearchResult();
 
-        // videoX.okSearch(id, title);
+        videoX.okSearch(id, title);
         videoX.zxSearch(id, title);
         id++;
     }
@@ -36,7 +36,10 @@ VideoX.prototype.okSearch = function(id, title){
         if (this.currentID == id){
             okParser.parserSearchResult(data, (searchResultList)=>{
                 uiMgr.addCatalogView('ok', 'ok资源网', searchResultList, okParser);
-                uiMgr.showSearchResultView('ok', searchResultList, okParser);
+                if (!uiMgr.hasSearchResult){
+                    uiMgr.hasSearchResult = true;
+                    uiMgr.showSearchResultView('ok', searchResultList, okParser);
+                }
             });
         }
     })
@@ -49,7 +52,10 @@ VideoX.prototype.zxSearch = function(id, title){
         if (this.currentID == id){
             zxParser.parserSearchResult(data, (searchResultList)=>{
                 uiMgr.addCatalogView('zx', 'zx资源网', searchResultList, zxParser);
-                // uiMgr.showSearchResultView('zx', searchResultList, zxParser);
+                if (!uiMgr.hasSearchResult){
+                    uiMgr.hasSearchResult = true;
+                    uiMgr.showSearchResultView('zx', searchResultList, zxParser);
+                }
             });
         }
     })
@@ -201,6 +207,7 @@ function UIMgr(){
     this.hasShowSearchView = false;
     this.hasShowPlayView = false;
     this.currentView = 'home';
+    this.hasSearchResult = false;
 }
 
 UIMgr.prototype.showHomeView = function(){
@@ -235,6 +242,7 @@ UIMgr.prototype.hideLoading = function(){
 UIMgr.prototype.clearSearchResult = function(){
     document.getElementById("search_results_ul").innerHTML = "";
     document.getElementById("catalog_ul").innerHTML = "";
+    this.hasSearchResult = false;
 }
 
 UIMgr.prototype.showPlayView = function(){
@@ -290,6 +298,11 @@ UIMgr.prototype.addCatalogView= function(key, title, resultList, resParser){
 
     node.onclick = ()=>{
         this.showSearchResultView(key, resultList, resParser);
+
+        if (document.getElementsByClassName('catalog-button-selected').length > 0){
+            document.getElementsByClassName('catalog-button-selected')[0].className = 'catalog-button-default';
+        }
+        node.getElementsByTagName('input')[0].className = 'catalog-button-selected';
     };
 }
 
@@ -334,7 +347,7 @@ UIMgr.prototype.createSearchResultNode = function(key, title, href, resParser){
 
 UIMgr.prototype.createCatalogNode = function createCatalogNode(title){
     var li = document.createElement('li');
-    li.innerHTML = ' <input type="button">';
+    li.innerHTML = ' <input type="button" class="catalog-button-default">';
     li.getElementsByTagName('input')[0].setAttribute('value', title);
 
     return li;
@@ -388,10 +401,9 @@ DataMgr.prototype.requestData = function(url, callback){
 //     })
 // });
 
-dataMgr.requestData('https://cn2.zuixinbo.com/20180415/1899_0b5ab9fa/index.m3u8', (res)=>{
-    console.log(res);
-});
-
+// dataMgr.requestData('https://cn2.zuixinbo.com/20180415/1899_0b5ab9fa/index.m3u8', (res)=>{
+//     console.log(res);
+// });
 
 function OKParser(){
 
@@ -441,11 +453,11 @@ OKParser.prototype.parserVideoPlaylist = function(text, callback){
     callback(playlist);
 }
 
-function ZXParser(){
+function YJParser(){
 
 }
 
-ZXParser.prototype.parserSearchResult = function(text, callback){
+YJParser.prototype.parserSearchResult = function(text, callback){
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(text,"text/html");
 
@@ -461,14 +473,14 @@ ZXParser.prototype.parserSearchResult = function(text, callback){
     callback(list);
 }
 
-ZXParser.prototype.parserImageUrl = function(text, callback){
+YJParser.prototype.parserImageUrl = function(text, callback){
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(text,"text/html");
     var url = xmlDoc.getElementsByClassName("lazy")[0].src;
     callback(url);
 }
 
-ZXParser.prototype.parserVideoPlaylist = function(text, callback){
+YJParser.prototype.parserVideoPlaylist = function(text, callback){
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(text,"text/html");
 
@@ -542,9 +554,6 @@ Player.prototype.reset = function(){
 }
 
 Player.prototype.play = function(url){
-    console.log(url);
-    // url = 'https://cn2.zuixinbo.com/20180415/1899_0b5ab9fa/index.m3u8';
-    // console.log(url);
     videojs('player').src({type: 'application/x-mpegURL', src: `${url}`});
 }
 

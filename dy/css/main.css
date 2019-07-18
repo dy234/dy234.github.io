@@ -314,13 +314,20 @@ input,button,select,textarea{outline:none;}
   margin: 5px 0;
 }
 
-.catalog_ul li input{
+.catalog-button-default{
   width: 100px;
   height: 30px;
-  border-radius: 5px;
   background-color: #232325;
   color: #ffffff;
-  border: 3px solid #23b9ba;
+  border: 0;
+}
+
+.catalog-button-selected{
+  width: 100px;
+  height: 30px;
+  background-color: #232325;
+  color: #fd7700;
+  border: 2px solid #23b9ba;
 }
 
 .catalog_ul li input:hover{
