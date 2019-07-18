@@ -543,8 +543,8 @@ Player.prototype.reset = function(){
 
 Player.prototype.play = function(url){
     console.log(url);
-    url = 'https://cn2.zuixinbo.com/20180415/1899_0b5ab9fa/index.m3u8';
-    console.log(url);
+    // url = 'https://cn2.zuixinbo.com/20180415/1899_0b5ab9fa/index.m3u8';
+    // console.log(url);
     videojs('player').src({type: 'application/x-mpegURL', src: `${url}`});
 }
 
