@@ -4,7 +4,8 @@ var uiMgr = new UIMgr();
 var play = new Player();
 var dataMgr = new DataMgr();
 var okParser = new OKParser();
-var zxParser = new ZXParser();
+var yjParser = new YJParser();
+var mjParser = new MJParser();
 var videoX = new VideoX();
 
 var id = 0;
@@ -20,7 +21,8 @@ function searchVideo(){
         uiMgr.clearSearchResult();
 
         videoX.okSearch(id, title);
-        videoX.zxSearch(id, title);
+        videoX.yjSearch(id, title);
+        videoX.mjSearch(id, title);
         id++;
     }
 }
@@ -32,29 +34,72 @@ function VideoX(title){
 VideoX.prototype.okSearch = function(id, title){
     this.currentID = id;
     var url = `https://www.okzy.co/index.php?m=vod-search&wd=${title}&submit=search`;
+    var imgUrlCb = function(index, cb){
+        var href = okParser.list[index].href;
+        dataMgr.requestData(href, (responseText)=>{
+            okParser.parserImageUrl(responseText, (url)=>{
+                cb(url);
+            });
+        });
+    }
+
     dataMgr.requestData(url, (data)=>{
         if (this.currentID == id){
             okParser.parserSearchResult(data, (searchResultList)=>{
-                uiMgr.addCatalogView('ok', 'ok资源网', searchResultList, okParser);
+                uiMgr.addCatalogView('ok', 'ok资源网', searchResultList, okParser, imgUrlCb);
                 if (!uiMgr.hasSearchResult){
                     uiMgr.hasSearchResult = true;
-                    uiMgr.showSearchResultView('ok', searchResultList, okParser);
+                    uiMgr.showSearchResultView('ok', searchResultList, okParser, imgUrlCb);
+                    document.getElementsByClassName('catalog-button-default')[0].className = 'catalog-button-selected';
                 }
             });
         }
     })
 }
 
-VideoX.prototype.zxSearch = function(id, title){
+VideoX.prototype.yjSearch = function(id, title){
     this.currentID = id;
-    var url = `https://www.zuixinzy.cc/index.php?m=vod-search&wd=${title}&submit=search`;
+    var url = `http://yongjiuzy.cc/index.php?m=vod-search&wd=${title}`;
+    var imgUrlCb = function(index, cb){
+        var href = yjParser.list[index].href;
+        dataMgr.requestData(href, (responseText)=>{
+            yjParser.parserImageUrl(responseText, (url)=>{
+                cb(url);
+            });
+        });
+    }
+
     dataMgr.requestData(url, (data)=>{
         if (this.currentID == id){
-            zxParser.parserSearchResult(data, (searchResultList)=>{
-                uiMgr.addCatalogView('zx', 'zx资源网', searchResultList, zxParser);
+            yjParser.parserSearchResult(data, (searchResultList)=>{
+                uiMgr.addCatalogView('yj', 'yj资源网', searchResultList, yjParser, imgUrlCb);
                 if (!uiMgr.hasSearchResult){
                     uiMgr.hasSearchResult = true;
-                    uiMgr.showSearchResultView('zx', searchResultList, zxParser);
+                    uiMgr.showSearchResultView('yj', searchResultList, yjParser,  imgUrlCb);
+                    document.getElementsByClassName('catalog-button-default')[0].className = 'catalog-button-selected';
+                }
+            });
+        }
+    })
+}
+
+VideoX.prototype.mjSearch = function(id, title){
+    this.currentID = id;
+    var url = `https://www.meiju.net/new/video/search/${title}.html`;
+    var imgUrlCb = function(index, cb){
+        mjParser.parserImageUrl(mjParser.list[index].imgUrl, (url)=>{
+            cb(url);
+        });
+    }
+
+    dataMgr.requestData(url, (data)=>{
+        if (this.currentID == id){
+            mjParser.parserSearchResult(data, (searchResultList)=>{
+                uiMgr.addCatalogView('mj', '爱美剧', searchResultList, mjParser, imgUrlCb);
+                if (!uiMgr.hasSearchResult){
+                    uiMgr.hasSearchResult = true;
+                    uiMgr.showSearchResultView('mj', searchResultList, mjParser,  imgUrlCb);
+                    document.getElementsByClassName('catalog-button-default')[0].className = 'catalog-button-selected';
                 }
             });
         }
@@ -89,6 +134,9 @@ var selectNode = function() {
 
 // var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
 var cors_api_url = 'https://bird.ioliu.cn/v2/?url=';
+var cors_api_url2 = 'https://bird.ioliu.cn/v1/?url=';
+var apiConfig = ['https://www.meiju.net'];
+
 function doCORSRequest(options, callback, updateProgress=null) {
     var x = new XMLHttpRequest();
 
@@ -96,7 +144,19 @@ function doCORSRequest(options, callback, updateProgress=null) {
         x.addEventListener("progress", updateProgress, false);
     }
 
-    x.open(options.method, cors_api_url + options.url);
+    var isUseV1API = false;
+    for (var i=0; i<apiConfig.length; i++){
+        if (options.url.indexOf(apiConfig[i]) >= 0){
+            isUseV1API = true;
+            break;
+        }
+    }
+
+    if (!isUseV1API){
+        x.open(options.method, cors_api_url + options.url);
+    } else {
+        x.open(options.method, cors_api_url2 + options.url);
+    }
   //   x.onload = x.onerror = function() {
   //     printResult(
   //       options.method + ' ' + options.url + '\n' +
@@ -108,7 +168,12 @@ function doCORSRequest(options, callback, updateProgress=null) {
   x.onreadystatechange = function() {
       if (x.readyState == 4) {
           if (x.status === 200) {
-              callback(x.responseText);
+              if (!isUseV1API){
+                callback(x.responseText);
+              } else {
+                // console.log(x.responseText.replace(/\\n/g, '').replace('/\\t/g', '').replace(/\\/g, ""));
+                callback(x.responseText.replace(/\\n/g, '').replace('/\\t/g', '').replace(/\\/g, ""));
+              }
           }
       } 
   };
@@ -268,7 +333,7 @@ UIMgr.prototype.selected = function(selectedNode){
     selectedNode.className = 'select_li_selected';
 }
 
-UIMgr.prototype.showSearchResultView = function(key, resultList, resParser){
+UIMgr.prototype.showSearchResultView = function(key, resultList, resParser, imgUrlCb){
     var nodes = document.getElementsByClassName('item_li');
     for(var i=0; i<nodes.length; i++){
         nodes[i].style.display = 'none';
@@ -280,7 +345,7 @@ UIMgr.prototype.showSearchResultView = function(key, resultList, resParser){
             var href =  resultList[i].href;
     
             document.getElementById("search_results_ul").
-            appendChild(this.createSearchResultNode(key, title, href, resParser));
+            appendChild(this.createSearchResultNode(i, key, title, href, resParser, imgUrlCb));
         }
     } else {
         var nodes = document.getElementsByClassName(key);
@@ -292,57 +357,18 @@ UIMgr.prototype.showSearchResultView = function(key, resultList, resParser){
     uiMgr.hideLoading();
 }
 
-UIMgr.prototype.addCatalogView= function(key, title, resultList, resParser){
+UIMgr.prototype.addCatalogView= function(key, title, resultList, resParser, imgUrlCb){
     var node = this.createCatalogNode(title);
     document.getElementById('catalog_ul').appendChild(node);
 
     node.onclick = ()=>{
-        this.showSearchResultView(key, resultList, resParser);
+        this.showSearchResultView(key, resultList, resParser, imgUrlCb);
 
         if (document.getElementsByClassName('catalog-button-selected').length > 0){
             document.getElementsByClassName('catalog-button-selected')[0].className = 'catalog-button-default';
         }
         node.getElementsByTagName('input')[0].className = 'catalog-button-selected';
     };
-}
-
-UIMgr.prototype.createSearchResultNode = function(key, title, href, resParser){
-    var li = document.createElement('li');
-    li.setAttribute("class", `item_li ${key}`);
-    li.innerHTML = searchReaultNode.getMultiLine();
-    li.getElementsByClassName("title_link")[0].innerHTML = title;
-
-    dataMgr.requestData(href, (responseText)=>{
-        resParser.parserImageUrl(responseText, (url)=>{
-            li.getElementsByClassName("div_img")[0].style.backgroundImage = "url(" + url + ")";
-        });
-    });
-
-    li.getElementsByClassName("div_img")[0].onclick = ()=>{
-
-        uiMgr.showPlayView();
-        uiMgr.clearSelectList();
-        play.reset();
-
-        dataMgr.requestData(href, (responseText)=>{
-            console.log(href);
-            resParser.parserVideoPlaylist(responseText, (playlist)=>{
-
-                for(var i=0; i<playlist.length; i++){
-                    var title = playlist[i].title;
-                    var m3u8Url = playlist[i].m3u8Url;
-                    document.getElementById('select_ul').appendChild(this.createSelectNode(title, m3u8Url));
-                }
-
-                if (playlist.length > 0){
-                    uiMgr.selected(document.getElementsByClassName('select_li')[0]);
-                    play.play(playlist[0].m3u8Url);
-                }
-            });
-        });
-    };
-
-    return li;
 }
 
 UIMgr.prototype.createCatalogNode = function createCatalogNode(title){
@@ -353,7 +379,52 @@ UIMgr.prototype.createCatalogNode = function createCatalogNode(title){
     return li;
 }
 
-UIMgr.prototype.createSelectNode =  function(title, m3u8Url){
+UIMgr.prototype.createSearchResultNode = function(index, key, title, href, resParser, imgUrlCb){
+    var li = document.createElement('li');
+    li.setAttribute("class", `item_li ${key}`);
+    li.innerHTML = searchReaultNode.getMultiLine();
+    li.getElementsByClassName("title_link")[0].innerHTML = title;
+
+    imgUrlCb(index, (url)=>{
+        li.getElementsByClassName("div_img")[0].style.backgroundImage = "url(" + url + ")";
+    });
+
+    li.getElementsByClassName("div_img")[0].onclick = ()=>{
+        uiMgr.showPlayView();
+        uiMgr.clearSelectList();
+        play.reset();
+
+        dataMgr.requestData(href, (responseText)=>{
+            resParser.parserVideoPlaylist(responseText, (playlist)=>{
+                for(var i=0; i<playlist.length; i++){
+                    var title = playlist[i].title;
+                    var m3u8Url = playlist[i].m3u8Url;
+                    document.getElementById('select_ul').appendChild(this.createSelectNode(title, m3u8Url, resParser));
+                }
+
+                if(playlist.length > 0){
+                    uiMgr.selected(document.getElementsByClassName('select_li')[0]);
+
+                    if(resParser.parserM3u8Url != null){
+                        resParser.parserM3u8Url(m3u8Url, (url)=>{
+                            if (url != null){
+                                play.play(url);
+                            } else {
+                                alert('无效播放地址！')
+                            }
+                        })
+                    } else {
+                        play.play(playlist[0].m3u8Url);
+                    }
+                }
+            });
+        });
+    };
+
+    return li;
+}
+
+UIMgr.prototype.createSelectNode =  function(title, m3u8Url, resParser){
     var li = document.createElement('li');
     li.setAttribute("class", "select_li");
     li.innerHTML = selectNode.getMultiLine();
@@ -361,7 +432,17 @@ UIMgr.prototype.createSelectNode =  function(title, m3u8Url){
 
     li.onclick = ()=>{
         uiMgr.selected(li);
-        playVideo(m3u8Url);
+        if (resParser.parserM3u8Url != null){
+            resParser.parserM3u8Url(m3u8Url, (url)=>{
+                if (url != null){
+                    play.play(url);
+                } else {
+                    alert('无效播放地址！')
+                }
+            })
+        } else {
+            play.play(m3u8Url);
+        }
     };
 
     return li;
@@ -406,23 +487,23 @@ DataMgr.prototype.requestData = function(url, callback){
 // });
 
 function OKParser(){
-
+    this.list = [];
 }
 
 OKParser.prototype.parserSearchResult = function(text, callback){
+    this.list = [];
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(text,"text/html");
 
     var nodes = xmlDoc.getElementsByClassName("xing_vb4");
-    var list = [];
     for(var i=0; i<nodes.length; i++){
         var node = nodes[i].getElementsByTagName("a")[0];
         var title = handleTitle(node.innerHTML);
         var href = "https://www.okzy.co" + node.getAttribute("href");
-        list[i] = {'title': title, 'href': href};
+        this.list[i] = {'title': title, 'href': href};
     }
 
-    callback(list);
+    callback(this.list);
 }
 
 OKParser.prototype.parserImageUrl = function(text, callback){
@@ -454,29 +535,29 @@ OKParser.prototype.parserVideoPlaylist = function(text, callback){
 }
 
 function YJParser(){
-
+    this.list = [];
 }
 
 YJParser.prototype.parserSearchResult = function(text, callback){
+    this.list = [];
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(text,"text/html");
 
-    var nodes = xmlDoc.getElementsByClassName("xing_vb4");
-    var list = [];
+    var nodes = xmlDoc.getElementsByClassName("l");
     for(var i=0; i<nodes.length; i++){
         var node = nodes[i].getElementsByTagName("a")[0];
         var title = handleTitle(node.innerHTML);
-        var href = "https://www.zuixinzy.cc" + node.getAttribute("href");
-        list[i] = {'title': title, 'href': href};
+        var href = "http://yongjiuzy.cc" + node.getAttribute("href");
+        this.list[i] = {'title': title, 'href': href};
     }
 
-    callback(list);
+    callback(this.list);
 }
 
 YJParser.prototype.parserImageUrl = function(text, callback){
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(text,"text/html");
-    var url = xmlDoc.getElementsByClassName("lazy")[0].src;
+    var url = xmlDoc.getElementsByClassName("videoPic")[0].getElementsByTagName('img')[0].src;
     callback(url);
 }
 
@@ -499,6 +580,62 @@ YJParser.prototype.parserVideoPlaylist = function(text, callback){
     }
 
     callback(playlist);
+}
+
+function MJParser(){
+    this.list = [];
+}
+
+MJParser.prototype.parserSearchResult = function(text, callback){
+    this.list = [];
+    var parser = new DOMParser();
+    var xmlDoc = parser.parseFromString(text,"text/html");
+
+    var nodes = xmlDoc.getElementsByClassName("thumbnail");
+    var list = [];
+    for(var i=0; i<nodes.length; i++){
+        var node = nodes[i];
+        var imgNode = node.getElementsByClassName("ff-img")[0];
+        var title = handleTitle(imgNode.getAttribute('alt'));
+        var href = "https://www.meiju.net" + node.getAttribute("href");
+        var imgUrl = imgNode.getAttribute("data-original");
+        this.list[i] = {'title': title, 'href': href, 'imgUrl': imgUrl};
+    }
+
+    callback(this.list);
+}
+
+MJParser.prototype.parserImageUrl = function(imgUrl, callback){
+    callback(imgUrl);
+}
+
+MJParser.prototype.parserVideoPlaylist = function(text, callback){
+    var parser = new DOMParser();
+    var xmlDoc = parser.parseFromString(text,"text/html");
+    var nodes = xmlDoc.getElementsByClassName('detail-play-list active')[0].getElementsByTagName('a');
+    var index = 0;
+    var playlist = [];
+    for(var i=0; i<nodes.length; i++){
+        var node = nodes[i];
+        var text = node.getAttribute('href');
+        if (text.indexOf('/new/Play') >= 0){
+            var title = node.innerText;
+            var m3u8Url = 'https://www.meiju.net' + text;
+            playlist[index++] = {'title': title, 'm3u8Url': m3u8Url};
+        }
+    }
+
+    callback(playlist);
+}
+
+MJParser.prototype.parserM3u8Url = function(url, callback){
+    dataMgr.requestData(url, (responseText)=>{
+        var index = responseText.lastIndexOf('.m3u8');
+        responseText  = responseText.substring(0, index);
+        var startIndex = responseText.lastIndexOf('http');
+        var m3u8Url = responseText.substring(startIndex) + '.m3u8';
+        callback(m3u8Url != '.m3u8' ? m3u8Url : null);
+    });
 }
 
 function Player(){

@@ -1,0 +1,79 @@
+@media only screen and (max-width: 1920px) {
+    #app {background: rgb(0, 225, 255);}
+    body { font-size: 16px;}
+    .logo{
+        margin-left: 10%;
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    #app {background: red;}
+    body { font-size: 16px;}
+    .logo{
+        margin-left: 0;
+    }
+}
+
+#app{
+    width: 100%;
+}
+
+.logo{
+    display: inline-block;
+    text-align: center;
+    font-size: 3em;
+    font-style: oblique;
+    color: #ffffff;
+}
+
+.search{ 
+    display: inline-block;
+    position: absolute;
+    left: 30%;
+    top: 65px;
+    height: 40px;
+    width: 50%;
+}
+
+.span_text{
+    display: inline-block;
+    width: 80%;
+}
+
+#search_text{
+    border: 2px solid #23b9ba;
+    border-radius: 100px 0 0 100px;
+    height: 20px;
+    width: 100%;
+    /* border: 0; */
+    font-size: 16px;
+    padding: 10px 0;
+    color: #262626;
+    font-family: Microsoft Yahei;
+    text-indent: 17px;
+    background: rgb(255, 255, 255);
+}
+
+.span_btn{
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    width: 20%;
+    height: 40px;
+    border: 2px solid #23b9ba;
+    border-radius: 0 100px 100px 0;
+    background: #23b9ba;
+}
+
+#search_btn{
+    height: 40px;
+    width: 100%;
+    border: 0;
+    background: none;
+    color: #fff7f5;
+    cursor: pointer;
+    font-family: "Microsoft Yahei";
+    letter-spacing: 1px; 
+}
+
+

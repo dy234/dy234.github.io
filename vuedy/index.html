@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./main.css" type="text/css">
+    <script  type="text/javascript" src='./vue.min.js'></script>
+</head>
+<body>
+    <div id='app'>
+            <div class="logo">
+                    <p>VideoX</p>
+            </div>
+            <div class="search">
+                    <div class="span_text">
+                        <input  id="search_text" placeholder="百万视频任你搜！" type="text" name="search">
+                    </div>
+                    <span class="span_btn">
+                        <input id="search_btn" type="button" value="搜索" onclick="searchVideo()">
+                    </span>
+            </div>
+            <p>{{message}}</p>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue.js111!',
+            }
+        })
+    </script>
+</body>
+</html>
