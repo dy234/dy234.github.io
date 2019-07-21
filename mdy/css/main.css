@@ -7,8 +7,8 @@ body{
 #viewport{
   position: absolute;
   top: 0;
-  min-height: 100%;
-  width: 54rem;
+  /* min-height: 100%; */
+  width: 20rem;
 }
 
 #menu_div{
@@ -188,16 +188,16 @@ input,button,select,textarea{outline:none;}
 .content{
   position: relative; 
   padding-bottom: 50px;
-  margin: 50px auto 0;
+  margin: 0 auto 1rem;
   padding: 0;
-  width: 1105px;
+  width: 20rem;
 }
 
 .content_tip{
     position: relative;
     left: 4rem;
-    width: 100%;
-    margin: 2rem auto 0;
+    width: 16rem;
+    margin: 4rem 0 0;
 }
 
 .tip1{
@@ -207,28 +207,26 @@ input,button,select,textarea{outline:none;}
 }
 
 .tip2{
+  display: inline-block;
   position: relative;
   left: 4rem;
   font-size: 0.6rem;
   color: #111;
+  margin-top: 2rem;
 }
 
 .search_results{
   display: inline-block;
-  width: 1000px;
-  margin-left: 200px;
+  /* width: 20rem; */
+  margin-left: 0;
   margin-top: 0;
   margin-left: 0;
-  margin-bottom: 100px;
+  margin-bottom: 2rem;
 }
 
 .search_results ul{
-    /* position: relative;
-    top: 30px;
-    padding: 0;
-    margin: 0 auto; */
-    width: 1000px;
-    padding: 0;
+    /* width: 20rem; */
+    padding: 0 0.7rem;
     list-style: none;
     font-size: 0;
 }
@@ -236,10 +234,11 @@ input,button,select,textarea{outline:none;}
 .item_li{
     /* background-color: #c6531a; */
     display: inline-block;
-    margin-left: 16px;
-    margin-right: 16px;
-    margin-bottom: 20px;
-    width: 168px;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+    margin-bottom: 0.35rem;
+    width: 6rem;
+    height: 9rem;
 }
 
 /* .vertical{
@@ -249,7 +248,7 @@ input,button,select,textarea{outline:none;}
 .link{
     /* background-color: #c6531a; */
     /* width: 168px; */
-    height: 224px;
+    height: 8rem;
     position: relative;
 
 }
@@ -257,46 +256,32 @@ input,button,select,textarea{outline:none;}
 .div_img{
     position: absolute;
     z-index: 1;
-    width: 168px;
-    height: 224px;
+    width: 6rem;
+    height: 8rem;
 }
 
 .div_img_bg{
     position: absolute;
     z-index: 0;
-    width: 168px;
-    height: 224px;
+    width: 6rem;
+    height: 8rem;
 }
 
-
-/* 
-.div_img::before {
-    content: "";
-    height: inherit;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: url(iphonex.png ) no-repeat center;
-    height: inherit;
-    background: url('../img/thumbnail.png')  no-repeat center;;
-} */
-
 .title{
-    height: 22px;
-    line-height: 22px;
-    padding: 6px 10px;
+    height: 1rem;
+    line-height: 1rem;
+    padding: 0.1rem 0.2rem;
     text-align: center;
 }
 
 .title_link{
-    font-size: 14px;
+    font-size: 0.25rem;
     color: #222;
 }
 
 .catalog{
-  width: 100px;
-  height: 500px;
+  width: 20rem;
+  /* height: 1rem; */
   display: inline-block;
   /* overflow-x: auto;
   overflow-y: hidden; */
@@ -350,12 +335,12 @@ a, a:active, a:hover, a:link, a:visited {
 
 .play_page {
     position: relative;
-    width: 1200px;
-    height: 640px;
+    width: 20rem;
+    height: 12rem;
     margin: 0 auto;
     background-color: #232325;
-    padding-bottom: 40px;
-    padding-top: 40px;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
 }
 
 #video_wrap {
@@ -366,8 +351,8 @@ a, a:active, a:hover, a:link, a:visited {
 
 .video-js {
     margin: 0 auto;
-    width: 960px;
-    height: 540px;
+    width: 20rem;
+    height: 11.25rem;
 }
 
 .video-js .vjs-time-control{
@@ -404,12 +389,12 @@ a, a:active, a:hover, a:link, a:visited {
  }
 
  .select_bg{
-    position: absolute;
+    /* position: absolute;
     left: 960px;
-    display: inline-block;
+    display: inline-block; */
     background-color: #2d2d2d;
-    width: 240px;
-    height: 540px;
+    width: 20rem;
+    height: 20rem;
     /* overflow-x:hidden; */
     overflow-y:auto;
     /* scrollbar-face-color: #333;
@@ -432,18 +417,18 @@ a, a:active, a:hover, a:link, a:visited {
 
 .select_li{ 
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 3rem;
+    height: 3rem;
     background-color: #3f3f3f;
-    margin: 8px;
+    margin: 0.15rem;
 }
 
 .select_li_selected{ 
   display: inline-block;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   background-color: #3f3f3f;
-  margin: 8px;
+  margin: 0.15rem;
   border: 2px solid #23b9ba;
 }
 
