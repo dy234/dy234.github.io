@@ -8,7 +8,7 @@ body{
   position: absolute;
   top: 0;
   min-height: 100%;
-  width: 100%;
+  width: 54rem;
 }
 
 #menu_div{
@@ -86,23 +86,24 @@ body{
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 50px;
+  /* right: 0; */
+  height: 1rem;
   color: #999;
-  font-size: 12px;
+  font-size: 0.2rem;
   background-color: #fafafa;
   text-align: center;
+  width: 100%;
 }
 
 .footer p {
-  line-height: 50px;
+  line-height: 1rem;
   margin: 0;
 }
 
 .header{ 
     width: 100%;
     background-color: #232325;
-    height: 100px;
+    height: 4rem;
 }
 
 .wrap{
@@ -114,18 +115,22 @@ body{
 }
 
 .logo{ 
-    display: inline-block;
-    position: relative;
-    left: 60px;
+    position: absolute;
+    left: 1rem;
     height: 100%;
+    width: 4rem;
     text-align: center;
-    font-size: 40px;
+    font-size: 20px;
     font-style: oblique;
     color: #ffffff;
-}
+  }
 
-.logo p{
-  margin: 24px 0 0 0;
+.logo_name{
+  position: absolute;
+  top:50%;
+  width:100%;
+  margin-top: -1rem;
+  line-height: 2rem;
 }
 
 input,button,select,textarea{outline:none;}
@@ -133,25 +138,25 @@ input,button,select,textarea{outline:none;}
 .search{ 
     display: inline-block;
     position: absolute;
-    left: 250px;
-    top: 30px;
-    height: 40px;
-    width: 50%;
+    left: 7rem;
+    top: 1rem;
+    height: 2rem;
+    width: 12rem;
 }
 
 .span_text{
     display: inline-block;
-    width: 80%;
+    width: 10rem;
 }
 
 #search_text{
     border: 2px solid #23b9ba;
     border-radius: 100px 0 0 100px;
-    height: 20px;
+    height: 2rem;
     width: 100%;
     /* border: 0; */
     font-size: 16px;
-    padding: 10px 0;
+    padding: 0 0;
     color: #262626;
     font-family: Microsoft Yahei;
     text-indent: 17px;
@@ -162,15 +167,15 @@ input,button,select,textarea{outline:none;}
     position: absolute;
     right: 0;
     display: inline-block;
-    width: 20%;
-    height: 40px;
+    width: 2rem;
+    height: 2rem;
     border: 2px solid #23b9ba;
     border-radius: 0 100px 100px 0;
     background: #23b9ba;
 }
 
 #search_btn{
-    height: 40px;
+    height: 2rem;
     width: 100%;
     border: 0;
     background: none;
@@ -190,21 +195,21 @@ input,button,select,textarea{outline:none;}
 
 .content_tip{
     position: relative;
-    left: 60px;
+    left: 4rem;
     width: 100%;
-    margin: 100px auto 0;
+    margin: 2rem auto 0;
 }
 
 .tip1{
-  font-size: 100px;
+  font-size: 2rem;
   color: #111;
   margin: 0;
 }
 
 .tip2{
   position: relative;
-  left: 200px;
-  font-size: 30px;
+  left: 4rem;
+  font-size: 0.6rem;
   color: #111;
 }
 

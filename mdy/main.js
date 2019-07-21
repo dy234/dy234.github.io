@@ -700,4 +700,3 @@ Player.prototype.pause = function(url){
         player.pause();
     }
 }
-

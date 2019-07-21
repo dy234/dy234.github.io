@@ -2,9 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>VideoX</title>
+    <script>
+    function setFontSize(){
+        var de = document.documentElement;
+        de.style.fontSize = de.getBoundingClientRect().width / 20 + 'px';
+    }
+    setFontSize();
+    window.addEventListener('resize', setFontSize, false);
+    </script>
     <link href="https://cdn.bootcss.com/video.js/5.19.0/alt/video-js-cdn.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <script src="https://cdn.bootcss.com/video.js/5.19.0/video.min.js"></script>
@@ -16,7 +24,7 @@
     <div class="header">
       <div class="wrap">
           <div class="logo">
-              <p>VideoX</p>
+              <p class='logo_name'>VideoX</p>
           </div>
           <div class="search">
             <div class="span_text">
