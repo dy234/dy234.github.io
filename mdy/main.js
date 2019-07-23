@@ -291,7 +291,7 @@ UIMgr.prototype.showSearchView = function(){
     document.getElementById('content').style.display = 'block';
     document.getElementById('play_page_bg').style.display = 'none';
     document.getElementById('content_tip').style.display = 'none';
-    document.getElementById('catalog').style.display = 'inline-block';
+    document.getElementById('catalog').style.display = 'block';
 
     menu.changeUI();
 }
@@ -639,64 +639,122 @@ MJParser.prototype.parserM3u8Url = function(url, callback){
 }
 
 function Player(){
-
+    this.player = null;
 }
+
+// Player.prototype.reset = function(){
+//     if (document.getElementById('player') != null){
+//         var player = videojs('player');
+//         player.dispose();
+//     }
+
+//     var str = `<video id="player" 
+//     class="video-js vjs-default-skin vjs-big-play-centered" 
+//     controls
+//     autoplay
+//     preload="auto">
+//     </video>`;
+//     document.getElementById('video_wrap').innerHTML = str;
+
+//     var player = videojs('player', {
+//         // fluid: true,
+//         bigPlayButton: true,
+//         textTrackDisplay: false,
+//         posterImage: false,
+//         errorDisplay: false,
+//         controlBar:{
+//             // 'LoadingSpinner': true,
+//             'currentTimeDisplay':true,
+//             'timeDivider':true,
+//             'durationDisplay':true,
+//             'remainingTimeDisplay':false,
+//             'volumeMenuButton':{
+//                 inline: false, // 不使用水平方式
+//                 vertical: true
+//               },
+//             children: [
+//                 {name: 'playToggle'}, // 播放按钮
+//                 {name: 'progressControl'}, // 播放进度条
+//                 {name: 'currentTimeDisplay'}, // 播放按钮
+//                 {name: 'timeDivider'}, // 当前已播放时间
+//                 {name: 'durationDisplay'}, // 总时间
+//                 {name: 'volumeMenuButton'}, // 播放按钮
+//                 { // 倍数播放
+//                   name: 'playbackRateMenuButton',
+//                   'playbackRates': [0.5, 1, 1.5, 2, 2.5]
+//                 },
+//                 {name: 'FullscreenToggle'} // 全屏
+//               ]
+//         }
+//     },function(){
+//         // this.play();
+//     })
+
+//     $('#video_wrap').on('touchstart', '#player_html5_api', function () {
+//         player.pause();
+//         $('.vjs-big-play-button').show();
+//     })
+//     $('#video_wrap').on('touchstart', '.vjs-big-play-button', function () {
+//         player.play();
+//         $('.vjs-big-play-button').hide();
+//     })
+// }
+
+// Player.prototype.play = function(url){
+//     videojs('player').src({type: 'application/x-mpegURL', src: `${url}`});
+// }
+
+// Player.prototype.pause = function(url){
+//     if (document.getElementById('player') != null){
+//         var player = videojs('player');
+//         player.pause();
+//     }
+// }
 
 Player.prototype.reset = function(){
     if (document.getElementById('player') != null){
-        var player = videojs('player');
-        player.dispose();
+        this.player.dispose();
+        this.player = null;
+    }  
+    
+    {
+        var str = `<video id="player" 
+        autoplay
+        controls>
+        </video>`;
+        document.getElementById('video_wrap').innerHTML = str;
+    
+        var width = document.documentElement.getBoundingClientRect().width;
+        this.player = larkplayer('player', {
+            width: width,
+            height: width * 9 / 16
+        },function(){
+
+        })
     }
-
-    var str = `<video id="player" 
-    class="video-js vjs-default-skin vjs-big-play-centered" 
-    controls
-    autoplay
-    preload="auto">
-    </video>`;
-    document.getElementById('video_wrap').innerHTML = str;
-
-    videojs('player', {
-        // fluid: true,
-        bigPlayButton: true,
-        textTrackDisplay: false,
-        posterImage: false,
-        errorDisplay: false,
-        controlBar:{
-            'currentTimeDisplay':true,
-            'timeDivider':true,
-            'durationDisplay':true,
-            'remainingTimeDisplay':false,
-            'volumeMenuButton':{
-                inline: false, // 不使用水平方式
-                vertical: true
-              },
-            children: [
-                {name: 'playToggle'}, // 播放按钮
-                {name: 'progressControl'}, // 播放进度条
-                {name: 'currentTimeDisplay'}, // 播放按钮
-                {name: 'timeDivider'}, // 当前已播放时间
-                {name: 'durationDisplay'}, // 总时间
-                {name: 'volumeMenuButton'}, // 播放按钮
-                { // 倍数播放
-                  name: 'playbackRateMenuButton',
-                  'playbackRates': [0.5, 1, 1.5, 2, 2.5]
-                },
-                {name: 'FullscreenToggle'} // 全屏
-              ]
-        }
-    },function(){
-        // this.play();
-    })
 }
 
 Player.prototype.play = function(url){
-    videojs('player').src({type: 'application/x-mpegURL', src: `${url}`});
+    this.player.src(url);
+    // screen.orientation.lock('landscape');
 }
 
 Player.prototype.pause = function(url){
     if (document.getElementById('player') != null){
-        var player = videojs('player');
-        player.pause();
+        this.player.pause();
     }
 }
+
+function setFontSize(){
+    var de = document.documentElement;
+    de.style.fontSize = de.getBoundingClientRect().width / 20 + 'px';
+
+    // if (play.player != null){
+    //     play.player.width(de.getBoundingClientRect().width);
+    //     play.player.height(de.getBoundingClientRect().width * 9 / 16);
+    //     console.log(de.getBoundingClientRect().width);
+    //     console.log(play.player.width);
+    // }
+}
+setFontSize();
+window.addEventListener('resize', setFontSize, false);
