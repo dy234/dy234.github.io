@@ -7,15 +7,16 @@ var okParser = new OKParser();
 var yjParser = new YJParser();
 var mjParser = new MJParser();
 var videoX = new VideoX();
-
+  
 var id = 0;
 function searchVideo(){
-    if (uiMgr.currentView == 'play'){
-        play.pause();
-    }
-
+    // fullScreen();
     var title = document.getElementById('search_text').value;
     if (title != null && title != ''){
+        if (uiMgr.currentView == 'play'){
+            play.pause();
+        }
+
         uiMgr.showSearchView();
         uiMgr.showLoading();
         uiMgr.clearSearchResult();
@@ -249,8 +250,9 @@ var webAppInit = function(){
         if(uiMgr.currentView == 'search' && uiMgr.hasShowPlayView){
             uiMgr.showPlayView();
             if (document.getElementById('player') != null){
-                var player = videojs('player');
-                player.play();
+                // var player = videojs('player');
+                // player.play();
+                play.play();
             }
         } else if (uiMgr.currentView == 'play'){
             // do nothing
@@ -432,6 +434,7 @@ UIMgr.prototype.createSelectNode =  function(title, m3u8Url, resParser){
 
     li.onclick = ()=>{
         uiMgr.selected(li);
+        play.reset();
         if (resParser.parserM3u8Url != null){
             resParser.parserM3u8Url(m3u8Url, (url)=>{
                 if (url != null){
@@ -640,6 +643,7 @@ MJParser.prototype.parserM3u8Url = function(url, callback){
 
 function Player(){
     this.player = null;
+    this.hasBeganPlay = false;
 }
 
 // Player.prototype.reset = function(){
@@ -711,36 +715,82 @@ function Player(){
 //     }
 // }
 
+async function fullScreenChange(isFullscreen) {
+    try {
+        // if ( screen.orientation.type.startsWith("portrait")){
+        //     // use necessary prefixed versions
+        //     // await document.body.webkitRequestFullscreen();
+        //     // await document.body.mozRequestFullScreen();
+        //     // await document.body.msRequestFullscreen();
+        //     //  
+        //     // // finally the standard version
+        //     // await document.body.requestFullscreen();
+
+        //     await screen.orientation.lock("landscape");
+        // } else {
+        //     // screen.orientation.unlock();
+        //     // setTimeout( () => {
+        //     //     fullscreen.exit();
+        //     // }, 0 );
+        // }
+        if (screen.orientation.type.startsWith("portrait")){
+            await screen.orientation.lock("landscape");
+        }
+    } catch (err) {
+        // if (isFullscreen){
+        //     alert(err + "\n请手动旋转屏幕");
+        // }
+    } finally{
+        
+    }
+}
+
 Player.prototype.reset = function(){
-    if (document.getElementById('player') != null){
-        this.player.dispose();
-        this.player = null;
-    }  
-    
+    if (this.player != null){
+        // this.player.dispose();
+        // this.player = null;
+        this.hasBeganPlay = false;
+        this.player.reset();
+    }  else
     {
         var str = `<video id="player" 
         autoplay
         controls>
         </video>`;
         document.getElementById('video_wrap').innerHTML = str;
-    
+
         var width = document.documentElement.getBoundingClientRect().width;
         this.player = larkplayer('player', {
             width: width,
             height: width * 9 / 16
         },function(){
 
-        })
+        });
+
+        this.player.on('fullscreenchange', (data) => {
+            fullScreenChange(data.detail);
+            // outputObj(data);
+            // outputObj(data.detail);
+            // outputObj(data.target);
+            // outputObj(data.currentTarget);
+            // if(data.detail){
+            //     screen.orientation.lock("landscape");
+            // }
+        });
     }
 }
 
 Player.prototype.play = function(url){
-    this.player.src(url);
-    // screen.orientation.lock('landscape');
+    if (this.hasBeganPlay){
+        this.player.play();
+    } else{
+        this.hasBeganPlay = true;
+        this.player.src(url);
+    }
 }
 
 Player.prototype.pause = function(url){
-    if (document.getElementById('player') != null){
+    if (this.player != null){
         this.player.pause();
     }
 }
@@ -756,5 +806,6 @@ function setFontSize(){
     //     console.log(play.player.width);
     // }
 }
+
 setFontSize();
 window.addEventListener('resize', setFontSize, false);
