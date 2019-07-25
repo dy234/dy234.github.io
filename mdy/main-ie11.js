@@ -1,5 +1,14 @@
 document.write('<script src="videoUility.js"><\/script>')
 
+try{
+   var es6 = ()=>{
+
+   }
+}
+catch(e){
+   alert(e);
+}
+
 var uiMgr = new UIMgr();
 var play = new Player();
 var dataMgr = new DataMgr();
@@ -37,19 +46,19 @@ function VideoX(title){
 
 VideoX.prototype.okSearch = function(id, title){
     this.currentID = id;
-    var url = `https://www.okzy.co/index.php?m=vod-search&wd=${title}&submit=search`;
+    var url = "https://www.okzy.co/index.php?m=vod-search&wd=" + title +"&submit=search";
     var imgUrlCb = function(index, cb){
         var href = okParser.list[index].href;
-        dataMgr.requestData(href, (responseText)=>{
-            okParser.parserImageUrl(responseText, (url)=>{
+        dataMgr.requestData(href, function (responseText) {
+            okParser.parserImageUrl(responseText, function (url) {
                 cb(url);
             });
         });
     }
 
-    dataMgr.requestData(url, (data)=>{
+    dataMgr.requestData(url, function (data) {
         if (this.currentID == id){
-            okParser.parserSearchResult(data, (searchResultList)=>{
+            okParser.parserSearchResult(data, function (searchResultList) {
                 uiMgr.addCatalogView('ok', 'ok资源网', searchResultList, okParser, imgUrlCb);
                 if (!uiMgr.hasSearchResult){
                     uiMgr.hasSearchResult = true;
@@ -63,19 +72,19 @@ VideoX.prototype.okSearch = function(id, title){
 
 VideoX.prototype.yjSearch = function(id, title){
     this.currentID = id;
-    var url = `http://yongjiuzy.cc/index.php?m=vod-search&wd=${title}`;
+    var url = "http://yongjiuzy.cc/index.php?m=vod-search&wd=" + title;
     var imgUrlCb = function(index, cb){
         var href = yjParser.list[index].href;
-        dataMgr.requestData(href, (responseText)=>{
-            yjParser.parserImageUrl(responseText, (url)=>{
+        dataMgr.requestData(href, function (responseText) {
+            yjParser.parserImageUrl(responseText, function (url) {
                 cb(url);
             });
         });
     }
 
-    dataMgr.requestData(url, (data)=>{
+    dataMgr.requestData(url, function(data) {
         if (this.currentID == id){
-            yjParser.parserSearchResult(data, (searchResultList)=>{
+            yjParser.parserSearchResult(data, function (searchResultList) {
                 uiMgr.addCatalogView('yj', 'yj资源网', searchResultList, yjParser, imgUrlCb);
                 if (!uiMgr.hasSearchResult){
                     uiMgr.hasSearchResult = true;
@@ -89,16 +98,16 @@ VideoX.prototype.yjSearch = function(id, title){
 
 VideoX.prototype.mjSearch = function(id, title){
     this.currentID = id;
-    var url = `https://www.meiju.net/new/video/search/${title}.html`;
+    var url = "https://www.meiju.net/new/video/search/" + title + "html";
     var imgUrlCb = function(index, cb){
-        mjParser.parserImageUrl(mjParser.list[index].imgUrl, (url)=>{
+        mjParser.parserImageUrl(mjParser.list[index].imgUrl, function (url){
             cb(url);
         });
     }
 
-    dataMgr.requestData(url, (data)=>{
+    dataMgr.requestData(url, function (data){
         if (this.currentID == id){
-            mjParser.parserSearchResult(data, (searchResultList)=>{
+            mjParser.parserSearchResult(data, function (searchResultList){
                 uiMgr.addCatalogView('mj', '爱美剧', searchResultList, mjParser, imgUrlCb);
                 if (!uiMgr.hasSearchResult){
                     uiMgr.hasSearchResult = true;
@@ -812,3 +821,5 @@ function setFontSize(){
 
 setFontSize();
 window.addEventListener('resize', setFontSize, false);
+
+webAppInit();

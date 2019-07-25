@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>VideoX</title>
+    <!-- <link href="https://cdn.bootcss.com/video.js/5.19.0/alt/video-js-cdn.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- <script src="https://cdn.bootcss.com/video.js/5.19.0/video.min.js"></script> -->
+    <!-- <script src="https://cdn.bootcss.com/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script> -->
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://unpkg.com/larkplayer@latest/dist/larkplayer.js"></script>
+    <script src="https://unpkg.com/larkplayer-ui@latest/dist/larkplayer-ui.js"></script>
+    <script src="https://unpkg.com/larkplayer-hls@latest/dist/larkplayer-hls.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <!-- <script type="text/javascript" src="test.js"></script> -->
+  </head>
+  <script>
+ alert(111111111);
+ function setFontSize(){
+    var de = document.documentElement;
+    de.style.fontSize = de.getBoundingClientRect().width / 20 + 'px';
+
+    // if (play.player != null){
+    //     play.player.width(de.getBoundingClientRect().width);
+    //     play.player.height(de.getBoundingClientRect().width * 9 / 16);
+    //     console.log(de.getBoundingClientRect().width);
+    //     console.log(play.player.width);
+    // }
+}
+
+setFontSize();
+window.addEventListener('resize', setFontSize, false);
+  </script>
+  <body>
+  1111111111
+  <div id='viewport'>
+    <div class="header">
+      <div class="wrap">
+          <div class="logo">
+              <p class='logo_name'>VideoX</p>
+          </div>
+          <div class="search">
+            <div class="span_text">
+                <input  id="search_text" placeholder="百万视频任你搜！" type="text" name="search">
+            </div>
+            <span class="span_btn">
+                <input id="search_btn" type="button" value="搜索" onclick="searchVideo();">
+            </span>
+          </div>
+      </div>
+    </div>
+</body>
+</html>

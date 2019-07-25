@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>VideoX</title>
     <!-- <link href="https://cdn.bootcss.com/video.js/5.19.0/alt/video-js-cdn.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/main.css">
@@ -14,7 +14,9 @@
     <script src="https://unpkg.com/larkplayer@latest/dist/larkplayer.js"></script>
     <script src="https://unpkg.com/larkplayer-ui@latest/dist/larkplayer-ui.js"></script>
     <script src="https://unpkg.com/larkplayer-hls@latest/dist/larkplayer-hls.js"></script>
-    <script type="text/javascript" src="main.js"></script>
+    <!-- <script type="text/javascript" src="main.js"></script> -->
+    <script type="text/javascript" src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel" src="./main.js"></script>
   </head>
   <body>
   <div id='viewport'>
@@ -35,7 +37,7 @@
     </div>
 
     <div class="content_tip" id='content_tip'>
-        <p class="tip1">随心所欲</br>想看就看</p>
+        <p class="tip1">随心所欲<br/>想看就看</p>
         <p class="tip2">VideoX帮助你快速寻找目标视频！</p>
       </div>
 
@@ -142,8 +144,8 @@
     <input class="menu" id='front_btn' type="button" value="前进">
   </div>
 
-  <script>
+  <!-- <script>
       webAppInit();
-    </script>
+    </script> -->
 </body>
 </html>
