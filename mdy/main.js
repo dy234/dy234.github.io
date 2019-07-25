@@ -7,13 +7,9 @@ var okParser = new OKParser();
 var yjParser = new YJParser();
 var mjParser = new MJParser();
 var videoX = new VideoX();
-alert(document.documentElement.getBoundingClientRect().width);
-alert(11111111);
 
 var id = 0;
 function searchVideo(){
-alert(55555555);
-
     var title = document.getElementById('search_text').value;
     if (title != null && title != ''){
         if (uiMgr.currentView == 'play'){
