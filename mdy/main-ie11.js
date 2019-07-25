@@ -48,7 +48,6 @@ VideoX.prototype.okSearch = function (id, title) {
   };
 
   dataMgr.requestData(url, function (data) {
-    console.log('data\n' + data);
     if (_this.currentID == id) {
       okParser.parserSearchResult(data, function (searchResultList) {
         uiMgr.addCatalogView('ok', 'ok资源网', searchResultList, okParser, imgUrlCb);
